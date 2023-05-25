@@ -25,9 +25,9 @@ class ReviewsController < ApplicationController
     @review.restaurant = @restaurant
 
     if @review.save
-      redirect_to @review, notice: 'Review was successfully created.'
+      redirect_to restaurant_path(@restaurant), notice: 'Review was successfully created.'
     else
-      render :new
+      render :new , status: :unprocessable_entity
     end
   end
 
@@ -36,7 +36,7 @@ class ReviewsController < ApplicationController
 
   def update
     if @review.update(review_params)
-      redirect_to @review, notice: 'Review was successfully updated.'
+      redirect_to review_path(@review), notice: 'Review was successfully updated.'
     else
       render :edit
     end
@@ -45,7 +45,7 @@ class ReviewsController < ApplicationController
   def destroy
     @review = Review.find(params[:id])
     @review.destroy
-    redirect_to review_url, notice: 'Review was successfully destroyed.'
+    redirect_to restaurant_path(@restaurant), notice: 'Review was successfully destroyed.'
   end
 
   private
